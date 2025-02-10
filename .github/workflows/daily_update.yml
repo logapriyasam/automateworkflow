@@ -1,0 +1,29 @@
+name: Daily Repository Update
+
+on:
+  schedule:
+    - cron: '30 0 * * *' # Runs daily at 00:30 UTC (Adjust as needed)
+  workflow_dispatch: # Add this to enable manual runs
+
+jobs:
+  update_repository:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Add daily update commit (logapriya.sampath@straive.com)
+        run: |
+          git config --global user.email "logapriya.sampath@straive.com"
+          git config --global user.name "GitHub Actions Bot"
+          echo "Daily update: $(date)" > update.txt  # Create or update a file
+          git add update.txt
+          git commit -m "Automated daily update"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.event.repository.default_branch }} # Use default branch for scheduled runs
+          # OR, if you want to push to the triggering branch:
+          # branch: ${{ github.ref_name }} # Extract the branch name
