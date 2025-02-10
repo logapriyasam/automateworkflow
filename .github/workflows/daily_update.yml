@@ -15,7 +15,7 @@ jobs:
       - name: Add daily update commit (logapriya.sampath@straive.com)
         run: |
           git config --global user.email "logapriya.sampath@straive.com"
-          git config --global user.name "GitHub Actions Bot"
+          git config --global user.name "logapriyasam"
           echo "Daily update: $(date)" > update.txt  # Create or update a file
           git add update.txt
           git commit -m "Automated daily update"
